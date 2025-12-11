@@ -1,0 +1,7 @@
+objeto,tipo_objeto,hemisferio,bortle,filtro,temp_sensor_C,snr_objetivo,exposicion_seg,lights_recomendados,darks_recomendados,integracion_total_min
+Orion Nebula,Nebulosa,Sur,6,L-Quad,-5,35,300,70,20,350.0
+Carina Nebula,Nebulosa,Sur,4,L-Quad,-10,35,210,50,15,175.0
+Omega Centauri,Cúmulo,Sur,5,UV/IR,-5,25,180,50,15,150.0
+Andromeda,Galaxia,Norte,4,UV/IR,-10,30,180,40,15,120.0
+Rosette,Nebulosa,Sur,5,L-Quad,-10,35,210,60,15,210.0
+Lagoon,Nebulosa,Sur,6,L-Quad,-5,35,300,70,20,350.0
