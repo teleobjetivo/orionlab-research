@@ -1,447 +1,465 @@
 from pathlib import Path
 import csv
 import textwrap
+from datetime import date
 
-# === 1. Configuración base ===
-BASE_DIR = Path("/Users/hugobaghetti/Desktop/PROYECTOS/OrionLab_Research")
-
-PROJECTS = [
-    # EEG / Neuro
-    ("p02_eeg_stress_states", "EEG Stress States Classification"),
-    ("p03_eeg_pain_patterns", "EEG Pain Pattern Detection"),
-    ("p04_eeg_bci_motor", "EEG BCI Motor Control Prototype"),
-
-    # Astro / Foto científica (solo plantillas por ahora)
-    ("p05_optolong_vs_narrowband", "Optolong L-Quad vs Narrowband in Bortle 7"),
-    ("p06_guiding_star_adventurer", "Guiding Accuracy in Star Adventurer GTi"),
-    ("p07_fwhm_seeing_estimation", "Seeing Estimation from FWHM with ASI533MC"),
-    ("p08_photometry_open_clusters", "Simple Photometry of Southern Open Clusters"),
-    ("p09_light_pollution_las_condes", "Light Pollution Impact in Las Condes"),
-    ("p10_python_reduction_pipeline", "Python Reduction Pipeline for OSC Cameras"),
-    ("p11_gradient_detection_lp", "Gradient Detection of Light Pollution"),
-    ("p12_planning_sessions_chile", "Planning Astro Sessions in Chile by Region"),
-    ("p13_star_colour_variation", "Star Colour Variation in Broadband Imaging"),
-    ("p14_stacking_algorithms_osc", "Comparing Stacking Algorithms for OSC Cameras"),
-    ("p15_dithering_impact_noise", "Dithering Impact on Thermal Noise"),
-    ("p16_starlink_trail_stats", "Starlink Trails Statistics from Santiago"),
-    ("p17_snr_model_multiband", "SNR Model with Multiband Filters in Bright Skies"),
-    ("p18_messier_ngc_from_chile", "Messier & NGC Visibility from Chile"),
-    ("p19_wavelets_nebulae_detail", "Wavelets for Enhancing Nebula Detail"),
-    ("p20_asi533_thermal_noise_model", "Thermal Noise Model for ASI533MC Pro"),
-]
+# Asume que este script vive en la carpeta raíz de OrionLab_Research
+BASE_DIR = Path(__file__).resolve().parent
 
 
-def write_root_readme():
-    content = textwrap.dedent("""
-    # OrionLab Research – Independent Data & Astro Science
-
-    Colección de estudios y experimentos de **OrionLab**, liderados por **Hugo Baghetti Calderón** (Chile),
-    en la intersección de:
-
-    - Neurociencia de datos (EEG, BCI, señales temporales)
-    - Astrofotografía científica y análisis cuantitativo de cielo profundo
-    - Ingeniería de datos aplicada a observación, modelos y simulación
-
-    Cada carpeta `pXX_*` representa un estudio con:
-
-    - `README.md` – Resumen ejecutivo del paper.
-    - `data/` – Datos sintéticos o muestreados para reproducir gráficos.
-    - `paper/` – Versión del paper en formato markdown (tipo revista científica).
-
-    ## Índice de estudios
-
-    - **P01 – Astro** – Modelo empírico de número óptimo de subs según cielo, objeto y cámara.
-    - **P02 – Neuro** – Clasificación de estados de estrés / relajación usando EEG de bajo costo.
-    - **P03 – Neuro** – Patrones EEG asociados a dolor y estímulos nociceptivos.
-    - **P04 – Neuro/BCI** – Prototipo de interfaz cerebro–computador para control de motor.
-    - **P05–P20 – Astro** – Estudios sobre filtros, SNR, guiado, contaminación lumínica,
-      visibilidad desde Chile, ruido térmico de la ASI533MC Pro y técnicas de procesado.
-
-    ## About Me – Hugo Baghetti Calderón
-
-    Ingeniero en Informática y Magíster en Gestión TI, con más de 15 años liderando proyectos de tecnología,
-    analítica y transformación digital. Mi trabajo combina estrategia, ciencia de datos y operación real de negocio,
-    integrando capacidades técnicas con visión ejecutiva.
-
-    Exploro, investigo y construyo soluciones. Mi enfoque une el método científico, la ingeniería y la narrativa visual:
-    desde modelos analíticos hasta proyectos de cielo profundo.
-
-    - 📧 Email: **teleobjetivo.boutique@gmail.com**
-    - 🌐 Web: **https://www.teleobjetivo.cl**
-    - 📸 Instagram: **[@tele.objetivo](https://www.instagram.com/tele.objetivo)**
-    - 💻 GitHub (Analytics): **https://github.com/teleobjetivo/analytics-tech-portfolio**
-    """).strip() + "\n"
-
-    (BASE_DIR / "README.md").write_text(content, encoding="utf-8")
-
-
-def create_project_skeleton(code: str, title: str):
-    proj_dir = BASE_DIR / code
+def write_p02_eeg_stress():
+    proj_dir = BASE_DIR / "p02_eeg_stress_states"
     data_dir = proj_dir / "data"
     paper_dir = proj_dir / "paper"
 
     data_dir.mkdir(parents=True, exist_ok=True)
     paper_dir.mkdir(parents=True, exist_ok=True)
 
-    # README básico del proyecto
-    readme_content = textwrap.dedent(f"""
-    # {code.upper()} – {title}
+    csv_path = data_dir / "eeg_stress_sessions.csv"
 
-    Este directorio forma parte de **OrionLab Research**.
-
-    - 📂 **Código**: `{code}`
-    - 📄 **Paper**: ver `paper/`
-    - 📊 **Datos**: ver `data/`
-
-    El objetivo de este estudio es documentar, de forma reproducible, un experimento de
-    investigación aplicado a neurociencia de datos o astrofotografía científica, usando
-    herramientas abiertas (Python, Jupyter, Git) y equipamiento accesible.
-
-    ## Estructura
-
-    - `data/` – CSV con datos de ejemplo para reproducir gráficos o análisis.
-    - `paper/` – Versión 1 del paper (`*_v1.md`), en formato markdown tipo artículo científico.
-
-    ## Estado
-
-    - Versión inicial del esqueleto: pendiente completar paper y análisis detallado.
-    """).strip() + "\n"
-
-    (proj_dir / "README.md").write_text(readme_content, encoding="utf-8")
-
-    # Template de paper en blanco
-    paper_template = textwrap.dedent(f"""
-    # {title}
-    **Autor:** Hugo Baghetti Calderón (Chile)  
-    **Afiliación:** OrionLab Research – tele.objetivo  
-
-    ## Resumen
-
-    *(Versión 1 – borrador)*  
-    Incluir un resumen breve (150–250 palabras) que responda:  
-    **Qué se estudia, cómo se mide, qué se encontró y por qué importa.**
-
-    ## 1. Introducción
-
-    - Contexto del problema.
-    - Motivación científica / técnica.
-    - Qué vacío de conocimiento se intenta abordar.
-    - Qué aporta este estudio a la comunidad (neuro / astro / data).
-
-    ## 2. Materiales y Métodos
-
-    - Equipamiento o datasets utilizados.
-    - Ubicación / condiciones (si aplica, por ejemplo observación desde Chile).
-    - Descripción del pipeline de análisis paso a paso.
-    - Supuestos y limitaciones.
-
-    ## 3. Resultados
-
-    - Principales hallazgos.
-    - Gráficos clave (que pueden generarse a partir de `data/`).
-    - Métricas relevantes.
-
-    ## 4. Discusión
-
-    - Interpretación de los resultados.
-    - Comparación con trabajos previos (cuando corresponda).
-    - Implicancias prácticas para la comunidad (observadores, clínicos, ingenieros).
-
-    ## 5. Conclusiones
-
-    - Qué se logró demostrar.
-    - Recomendaciones concretas.
-    - Próximos pasos.
-
-    ## 6. Referencias
-
-    - Añadir artículos, documentación, bases de datos o manuales relevantes.
-    """).strip() + "\n"
-
-    (paper_dir / f"{code}_v1.md").write_text(paper_template, encoding="utf-8")
-
-
-def create_p01_full():
-    """Crea P01 con CSV realista + paper completo v1."""
-    code = "p01_astro_subs_optimos"
-    title = "Modelo empírico para estimar el número óptimo de subs en astrofotografía de cielo profundo"
-
-    proj_dir = BASE_DIR / code
-    data_dir = proj_dir / "data"
-    paper_dir = proj_dir / "paper"
-
-    data_dir.mkdir(parents=True, exist_ok=True)
-    paper_dir.mkdir(parents=True, exist_ok=True)
-
-    # CSV de ejemplo: distintas combinaciones de cielo, objeto, equipo, etc.
-    csv_path = data_dir / "p01_experimentos_subs.csv"
     rows = [
-        # cielo, objeto, tipo, bortle, exp_seg, num_subs, snr_medio, camara, filtro
-        ["Atacama", "NGC 3372", "Nebulosa de emisión", 1, 180, 40, 35.2, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Atacama", "NGC 3372", "Nebulosa de emisión", 1, 300, 30, 37.8, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Valle Central", "M42", "Nebulosa brillante", 5, 120, 60, 28.5, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Valle Central", "M42", "Nebulosa brillante", 5, 180, 40, 29.1, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Las Condes", "Roseta", "Nebulosa de emisión", 7, 180, 80, 22.3, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Las Condes", "Roseta", "Nebulosa de emisión", 7, 240, 60, 23.0, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Farellones", "NGC 253", "Galaxia", 3, 180, 90, 31.4, "ASI533MC Pro", "Sin filtro"],
-        ["Farellones", "NGC 253", "Galaxia", 3, 240, 60, 32.1, "ASI533MC Pro", "Sin filtro"],
-        ["Costa", "NGC 2070", "Región HII", 4, 180, 70, 29.8, "ASI533MC Pro", "Optolong L-Quad"],
-        ["Costa", "NGC 2070", "Región HII", 4, 240, 50, 30.2, "ASI533MC Pro", "Optolong L-Quad"],
+        # subject_id, session_date, device, condition, label, mean_alpha, mean_beta, hr_bpm, notes
+        ["S01", "2022-11-10", "Muse 2", "rest_eyes_closed", "relaxed", 12.5, 7.1, 64, "Sesión base, ambiente silencioso"],
+        ["S01", "2022-11-10", "Muse 2", "mental_arithmetic", "stressed", 8.7, 12.9, 82, "Suma mental continua 7 en 7"],
+        ["S02", "2023-01-05", "Muse 2", "reading_neutral_text", "relaxed", 11.9, 7.9, 70, "Lectura tranquila 10 min"],
+        ["S02", "2023-01-05", "Muse 2", "mental_arithmetic", "stressed", 9.1, 13.2, 85, "Tarea mental moderada"],
+        ["S03", "2023-06-21", "OpenBCI", "breathing_exercise", "relaxed", 13.4, 6.8, 60, "Respiración 4-4-8"],
+        ["S03", "2023-06-21", "OpenBCI", "time_pressure_task", "stressed", 8.3, 14.1, 90, "Tarea con límite de tiempo"],
+        ["S04", "2024-03-14", "Muse S", "music_relaxing", "relaxed", 12.8, 7.4, 67, "Música ambiental suave"],
+        ["S04", "2024-03-14", "Muse S", "email_overload", "stressed", 9.0, 13.8, 88, "Simulación de trabajo con muchos estímulos"],
+        ["S05", "2024-09-02", "OpenBCI", "baseline", "relaxed", 12.2, 7.6, 66, "Referencia en reposo"],
+        ["S05", "2024-09-02", "OpenBCI", "multitasking_screen", "stressed", 8.9, 14.5, 92, "Varias tareas en pantalla"],
     ]
 
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([
-            "region", "objeto", "tipo_objeto", "bortle",
-            "exposicion_seg", "num_subs", "snr_medio",
-            "camara", "filtro"
+            "subject_id",
+            "session_date",
+            "device",
+            "condition",
+            "label",
+            "mean_alpha",
+            "mean_beta",
+            "hr_bpm",
+            "notes",
         ])
         writer.writerows(rows)
 
-    # README específico de P01
-    readme_content = textwrap.dedent(f"""
-    # P01 – {title}
+    paper_path = paper_dir / "p02_eeg_stress_states_v1.md"
 
-    Estudio empírico para responder una pregunta práctica clave en astrofotografía de cielo profundo:
+    paper_content = textwrap.dedent(f"""
+    # EEG Stress States Classification using Low-Cost Devices
+    **Author:** Hugo Baghetti Calderón (Chile)  
+    **Affiliation:** OrionLab Research – tele.objetivo  
 
-    > **¿Cuántas imágenes (subs) necesito realmente, con mi equipo y mi cielo, para obtener una señal aceptable
-    en nebulosas y galaxias?**
+    ## Abstract
 
-    El foco está puesto en un setup real:
+    Stress is typically measured through subjective scales or clinical interviews, but low-cost EEG devices
+    and simple physiological markers (heart rate) make it possible to approximate stress states in everyday
+    environments. In this preliminary study, we explore whether basic EEG band power (alpha and beta) combined
+    with heart rate can distinguish relaxed vs. stressed conditions in a small set of controlled tasks.
 
-    - **Telescopio principal:** William Optics RedCat 51 MK2.5  
-    - **Cámara:** ZWO ASI533MC Pro (refrigerada)  
-    - **Montura:** Sky-Watcher Star Adventurer GTi  
-    - **Filtro:** Optolong L-Quad Enhance Filter  
-    - **Control:** ZWO ASIAIR Plus  
-    - Observación desde Chile: cielos urbanos (Las Condes), valle, costa y zonas oscuras (Atacama, cordillera).
+    We collected synthetic-yet-realistic data inspired by sessions using devices such as Muse 2, Muse S
+    and OpenBCI boards, across different tasks (mental arithmetic, breathing exercises, neutral reading).
+    The dataset in `data/eeg_stress_sessions.csv` reflects plausible patterns seen in the literature:
+    increased beta power and heart rate under cognitive load, and increased alpha power during relaxation.
 
-    ## Archivos
+    The goal is not to build a clinical-grade classifier, but to document a reproducible pipeline that
+    can be used in teaching, prototyping BCI ideas, and designing experiments around stress and workload.
 
-    - `data/p01_experimentos_subs.csv` – Tabla con experimentos sintéticos realistas, combinando:
-      - Clase de cielo (Bortle 1–7)
-      - Tipo de objeto (nebulosa, galaxia, región HII)
-      - Exposición por sub (segundos)
-      - Número de subs
-      - SNR promedio aproximado
-    - `paper/p01_subs_optimos_v1.md` – Versión 1 del paper en formato markdown.
+    ## 1. Introduction
 
-    ## Objetivo del paper
+    Measuring stress in real time is a recurring goal in applied neuroscience and human–computer interaction.
+    While medical EEG systems and full polysomnography are out of reach for most users, a new generation of
+    low-cost headsets has made it possible to experiment at home, in the lab, or in the classroom.
 
-    Proponer una **regla práctica** para planificar sesiones de astrofotografía en función de:
+    This project proposes:
 
-    - Bortle del sitio
-    - Tipo de objeto
-    - Equipo utilizado (setup de Hugo)
-    - Tiempo total disponible en la noche
+    - A small, structured dataset representing relaxed vs. stressed conditions.
+    - A simple feature set (mean alpha, mean beta, heart rate).
+    - A starting point for building logistic regression or tree-based models to classify states.
 
-    El output buscado es del tipo:
+    The study is framed as part of **OrionLab Research**, connecting data science, neuroscience and
+    engineering practice, and is intended to be reproducible with open-source tools (Python, Jupyter).
 
-    > “Desde Las Condes (Bortle 7) para una nebulosa de emisión con el setup RedCat 51 + ASI533MC Pro + L-Quad,
-    > apuntando a SNR aceptable para procesado, necesitas aproximadamente *N* subs de *T* segundos.”
+    ## 2. Materials and Methods
 
-    Esto sirve tanto a la comunidad chilena como a cualquier usuario de equipo similar.
+    ### 2.1 Devices
 
-    ## Autor
+    The synthetic data is inspired by the capabilities of the following devices:
 
-    - **Hugo Baghetti Calderón** – OrionLab Research / tele.objetivo (Chile)
+    - Muse 2 / Muse S (consumer EEG, dry electrodes).
+    - OpenBCI board with standard EEG cap.
+
+    For the purposes of this version, we focus on summary-level features:
+
+    - Mean alpha band power (8–12 Hz).
+    - Mean beta band power (13–30 Hz).
+    - Heart rate (beats per minute, BPM).
+
+    ### 2.2 Experimental Conditions
+
+    Sessions are organized in pairs per subject:
+
+    - **Relaxed conditions:** resting with eyes closed, controlled breathing, relaxing music, neutral reading.
+    - **Stressed conditions:** mental arithmetic, multitasking, simulated email overload, time-pressure tasks.
+
+    Each row in `eeg_stress_sessions.csv` represents a session-level summary:
+
+    - `subject_id` – anonymized participant code.
+    - `session_date` – date of recording (2019–2025 range in extended versions).
+    - `device` – type of EEG hardware used.
+    - `condition` – type of task performed.
+    - `label` – target class (`relaxed` or `stressed`).
+    - `mean_alpha`, `mean_beta` – normalized band power.
+    - `hr_bpm` – average heart rate.
+    - `notes` – short qualitative note.
+
+    ### 2.3 Analysis Pipeline (Proposed)
+
+    A typical pipeline using this dataset would:
+
+    1. Load the CSV into a Pandas DataFrame.
+    2. Explore distributions of alpha, beta and heart rate by label.
+    3. Train a simple classifier (e.g., logistic regression, random forest).
+    4. Evaluate accuracy, precision/recall, and interpret feature importances.
+
+    This structure is designed to be used in teaching environments where students can run experiments
+    locally, even with limited connectivity or hardware.
+
+    ## 3. Results (Preliminary)
+
+    Qualitative inspection of the synthetic data suggests:
+
+    - Relaxed conditions show higher alpha power and lower heart rate.
+    - Stressed conditions show higher beta power and elevated heart rate.
+    - A linear decision boundary in the (alpha, beta, hr) space would separate most points.
+
+    In a full implementation, these observations would be complemented with actual model training and
+    cross-validation metrics.
+
+    ## 4. Discussion
+
+    This study defines a small but coherent schema for stress-related EEG data, aligned with the constraints
+    of low-cost devices and small student projects. It is not a clinical dataset; instead, it acts as a
+    scaffold for:
+
+    - Teaching basic EEG data handling.
+    - Prototyping BCI applications around stress detection.
+    - Exploring multimodal features (EEG + heart rate).
+
+    ## 5. Conclusions
+
+    - Low-cost EEG devices combined with simple features can approximate stress vs. relaxation states.
+    - A structured dataset and a clear schema are essential for reproducible teaching and experimentation.
+    - This project will evolve towards including real recordings, more channels and time-resolved features.
+
+    ## 6. Version History
+
+    - v1.0 ({date.today().isoformat()}): Initial synthetic dataset and paper structure.
+
+    ## 7. References
+
+    - Manufacturer documentation (Muse, OpenBCI).
+    - Introductory papers on EEG-based stress detection.
+    - Future links to OrionLab experiments and Git repositories.
     """).strip() + "\n"
 
-    (proj_dir / "README.md").write_text(readme_content, encoding="utf-8")
+    paper_path.write_text(paper_content, encoding="utf-8")
+    print("✅ P02 EEG stress content written.")
 
-    # Paper completo V1 en markdown
-    paper_content = textwrap.dedent("""
-    # Modelo empírico para estimar el número óptimo de subs en astrofotografía de cielo profundo
-    **Autor:** Hugo Baghetti Calderón (Chile)  
-    **Afiliación:** OrionLab Research – tele.objetivo  
 
-    ## Resumen
+def write_p03_eeg_pain():
+    proj_dir = BASE_DIR / "p03_eeg_pain_patterns"
+    data_dir = proj_dir / "data"
+    paper_dir = proj_dir / "paper"
 
-    La planificación de sesiones de astrofotografía de cielo profundo suele apoyarse en reglas empíricas poco
-    documentadas: “tira todo lo que puedas”, “mínimo dos horas”, “mejor muchas subs cortas que pocas largas”.
-    En este trabajo se propone un modelo empírico sencillo para orientar el número de subs necesarios en función
-    del brillo del cielo (Bortle), el tipo de objeto y el setup utilizado, basado en el equipo real del autor
-    (William Optics RedCat 51 MK2.5, ZWO ASI533MC Pro, filtro Optolong L-Quad y montura Sky-Watcher
-    Star Adventurer GTi), observando desde distintos cielos de Chile (urbano, valle, costa y zonas oscuras).
+    data_dir.mkdir(parents=True, exist_ok=True)
+    paper_dir.mkdir(parents=True, exist_ok=True)
 
-    A partir de un conjunto de escenarios sintéticos realistas, se exploran combinaciones de exposición por sub,
-    número de subs y cielo para derivar una regla práctica que pueda usarse en planificación: cuántos minutos
-    o horas de integración son razonables para obtener una señal aceptable para procesado visual.
+    csv_path = data_dir / "eeg_pain_experiments.csv"
 
-    ## 1. Introducción
+    rows = [
+        # subject_id, session_date, stim_type, intensity_level, channel, band, power_db, label
+        ["S01", "2021-08-11", "thermal", 1, "Cz", "beta", -15.2, "baseline"],
+        ["S01", "2021-08-11", "thermal", 3, "Cz", "beta", -10.4, "mild_pain"],
+        ["S01", "2021-08-11", "thermal", 5, "Cz", "beta",  -7.8, "high_pain"],
+        ["S02", "2022-02-03", "pressure", 2, "C3", "gamma", -14.1, "baseline"],
+        ["S02", "2022-02-03", "pressure", 4, "C3", "gamma",  -9.9, "mild_pain"],
+        ["S02", "2022-02-03", "pressure", 5, "C3", "gamma",  -7.2, "high_pain"],
+        ["S03", "2023-07-19", "thermal", 2, "Cz", "beta", -13.5, "baseline"],
+        ["S03", "2023-07-19", "thermal", 4, "Cz", "beta", -9.2, "mild_pain"],
+        ["S04", "2024-05-09", "pressure", 3, "C4", "gamma", -11.3, "mild_pain"],
+        ["S04", "2024-05-09", "pressure", 5, "C4", "gamma", -8.1, "high_pain"],
+    ]
 
-    La mejora de sensores, filtros y software ha hecho que la astrofotografía de cielo profundo sea accesible
-    incluso desde cielos urbanos altamente contaminados (por ejemplo, Las Condes, Santiago de Chile, Bortle ~7).
-    Sin embargo, la pregunta operativa sigue siendo la misma:
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "subject_id",
+            "session_date",
+            "stim_type",
+            "intensity_level",
+            "channel",
+            "band",
+            "power_db",
+            "label",
+        ])
+        writer.writerows(rows)
 
-    > ¿Cuánto tiempo tengo que integrar para que valga la pena salir?
+    paper_path = paper_dir / "p03_eeg_pain_patterns_v1.md"
 
-    La literatura técnica y la experiencia de la comunidad sugieren que la señal-ruido (SNR) mejora con la
-    raíz cuadrada del número de subs, pero rara vez se ofrece una guía concreta adaptada a un setup específico
-    y a condiciones reales de observación desde un país determinado.
+    paper_content = textwrap.dedent(f"""
+    # EEG Patterns Associated with Pain and Nociceptive Stimuli
+    **Author:** Hugo Baghetti Calderón (Chile)  
+    **Affiliation:** OrionLab Research – tele.objetivo  
 
-    En este trabajo se aborda el problema desde un enfoque práctico:
+    ## Abstract
 
-    - Se fija un setup realista (RedCat 51 + ASI533MC Pro + Optolong L-Quad + Star Adventurer GTi).
-    - Se consideran distintos cielos típicos de Chile (desierto, cordillera, valle central, costa, ciudad).
-    - Se modela de forma sintética una SNR promedio resultante de distintas combinaciones de exposición y número de subs.
-    - Se propone una regla orientativa para planificar sesiones en función de Bortle, tipo de objeto y tiempo disponible.
+    Pain perception is a multi-dimensional phenomenon with clear electrophysiological correlates.
+    In research and clinical practice, controlled nociceptive stimuli (thermal, pressure) are used
+    to study how the brain responds to increasing levels of pain.
 
-    El objetivo no es reemplazar simulaciones físicas detalladas, sino ofrecer una herramienta intuitiva para
-    astrofotógrafos que usan equipos portátiles similares y desean tomar decisiones informadas antes de salir.
+    This project defines a small, structured dataset (`data/eeg_pain_experiments.csv`) representing
+    EEG power in selected channels and bands under baseline, mild and high pain conditions.
+    The goal is to provide a realistic starting point for experimentation with classification
+    models and visualization of pain-related EEG patterns, without requiring access to clinical
+    datasets.
 
-    ## 2. Materiales y Métodos
+    ## 1. Introduction
 
-    ### 2.1 Setup observacional
+    Objective markers of pain are a major challenge in neurology, anesthesiology and chronic pain research.
+    While no single biomarker has been universally accepted, EEG changes in beta and gamma bands over
+    central channels (e.g., Cz, C3, C4) have been repeatedly reported in controlled experiments.
 
-    El modelo y las recomendaciones se centran en el siguiente equipamiento:
+    OrionLab Research approaches this topic from a data-science perspective:
 
-    - Telescopio **William Optics RedCat 51 MK2.5** (refractor APO de campo amplio).
-    - Cámara refrigerada **ZWO ASI533MC Pro** (sensor cuadrado, bajo ruido de lectura).
-    - Filtro **Optolong L-Quad Enhance Filter**, optimizado para nebulosas en cielos contaminados.
-    - Montura **Sky-Watcher Star Adventurer GTi**, en modo guiado.
-    - Guía: **ZWO ASI120MM Mini** + mini telescopio de 30 mm.
-    - Control y automatización mediante **ZWO ASIAIR Plus**.
+    - Define a clear schema for pain-related EEG experiments.
+    - Provide synthetic-yet-coherent data for teaching and prototyping.
+    - Enable small-scale modelling exercises around pain vs. non-pain states.
 
-    Se asume un guiado correctamente calibrado, con errores de seguimiento compatibles con exposiciones
-    de 120–300 segundos sin elongación significativa de las estrellas.
+    ## 2. Materials and Methods
 
-    ### 2.2 Cielos considerados
+    ### 2.1 Experimental Paradigm (Synthetic)
 
-    Se modelan los siguientes entornos típicos de observación en Chile:
+    The dataset simulates:
 
-    - **Atacama** – Bortle 1 (cielo excepcionalmente oscuro).
-    - **Farellones / cordillera** – Bortle 3.
-    - **Costa** – Bortle 4.
-    - **Valle Central** – Bortle 5.
-    - **Las Condes (Santiago)** – Bortle 7 (urbano brillante).
+    - Thermal and pressure stimuli.
+    - Intensity levels from 1 (very low) to 5 (high).
+    - Central channels (Cz, C3, C4).
+    - Bands of interest: beta and gamma.
+    - Labels: `baseline`, `mild_pain`, `high_pain`.
 
-    ### 2.3 Dataset sintético
+    Each row in `eeg_pain_experiments.csv` includes:
 
-    El archivo `data/p01_experimentos_subs.csv` contiene escenarios sintéticos realistas combinando:
+    - `subject_id` – anonymized participant.
+    - `session_date` – date of experiment.
+    - `stim_type` – `thermal` or `pressure`.
+    - `intensity_level` – ordinal 1–5.
+    - `channel` – EEG channel.
+    - `band` – frequency band.
+    - `power_db` – relative power in dB.
+    - `label` – experimental condition.
 
-    - Región / cielo (`region`, `bortle`)
-    - Objeto (`objeto`, `tipo_objeto`)
-    - Exposición individual (`exposicion_seg`)
-    - Número de subs (`num_subs`)
-    - SNR media estimada (`snr_medio`)
+    ### 2.2 Suggested Analysis
 
-    Estos valores no provienen de medidas fotométricas exactas, sino de una parametrización cualitativa que
-    respeta tendencias razonables:
+    - Exploratory plots of power vs. intensity per band and channel.
+    - Boxplots comparing baseline vs. mild vs. high pain.
+    - Simple classifiers distinguishing baseline vs. pain states.
+    - Discussion of limitations and ethical constraints of real pain experiments.
 
-    - El SNR crece aproximadamente con la raíz del tiempo total de integración.
-    - El SNR empeora con cielos más brillantes (mayor Bortle).
-    - Nebulosas de emisión con filtro L-Quad se comportan mejor que galaxias sin filtro en cielos brillantes.
+    ## 3. Results (Conceptual)
 
-    Esto permite explorar patrones de manera reproducible, aun cuando el objetivo principal es metodológico.
+    The synthetic patterns follow these expectations:
 
-    ### 2.4 Métrica principal
+    - Power in beta/gamma bands increases with intensity in pain conditions.
+    - Differences between baseline and high pain are clearly separable.
+    - Mild pain overlaps partially with both extremes, mirroring ambiguity
+      seen in real experiments.
 
-    Se trabaja con una SNR promedio adimensional `snr_medio`, que se interpreta cualitativamente como:
+    ## 4. Discussion
 
-    - **SNR < 20** → Difícil de procesar; ruido muy dominante.
-    - **SNR 20–30** → Aceptable para procesado cuidadoso; resultado “decente”.
-    - **SNR > 30** → Muy buen punto de partida; detalle y contraste aprovechables.
+    This project is designed as a **teaching and prototyping tool**, not as a clinical reference.
+    It provides:
 
-    El interés práctico es identificar qué combinaciones cruzan el umbral de **SNR ≈ 25–30**.
+    - A compact schema that can be extended with real data.
+    - A bridge between theoretical reading on pain EEG and hands-on modelling.
+    - A template for future OrionLab datasets using real recordings and more complex features.
 
-    ## 3. Resultados
+    ## 5. Conclusions
 
-    A partir de los escenarios sintéticos del CSV, se observan patrones coherentes:
+    - EEG-based pain research can be approached systematically with small structured datasets.
+    - Synthetic data, when carefully designed, is useful to practice analysis techniques before
+      working with sensitive clinical material.
+    - OrionLab Research will use this project as a stepping stone towards BCI and assistive
+      technology for patients experiencing chronic pain.
 
-    1. En **Atacama (Bortle 1)**, con nebulosas de emisión y L-Quad, se alcanzan SNR > 35 con:
-       - 40 subs de 180 s (2 horas) o
-       - 30 subs de 300 s (2,5 horas).
+    ## 6. Version History
 
-    2. En el **Valle Central (Bortle 5)**, para M42 con filtro L-Quad:
-       - 60 subs de 120 s (2 horas) dan SNR ≈ 28,5.
-       - 40 subs de 180 s (2 horas) dan SNR ≈ 29,1.
-       La ganancia adicional por alargar la exposición individual es marginal en este rango.
+    - v1.0 ({date.today().isoformat()}): Initial dataset schema and paper structure.
 
-    3. En **Las Condes (Bortle 7)**, apuntando a Roseta:
-       - 80 subs de 180 s (~4 horas) dan SNR ≈ 22,3.
-       - 60 subs de 240 s (4 horas) dan SNR ≈ 23,0.
-       Incluso con 4 horas, el SNR sigue limitado por el brillo del cielo.
+    ## 7. References
 
-    4. En **Farellones (Bortle 3)** con galaxias sin filtro:
-       - 90 subs de 180 s (4,5 horas) → SNR ≈ 31,4.
-       - 60 subs de 240 s (4 horas) → SNR ≈ 32,1.
-       De nuevo, la diferencia entre muchas subs cortas y menos subs largas es secundaria frente al tiempo total.
-
-    En resumen, el tiempo total de integración domina el resultado, como era esperable, pero se observan
-    diferencias significativas entre cielos.
-
-    ## 4. Discusión
-
-    Los resultados apoyan varias conclusiones prácticas:
-
-    1. **El cielo manda:** desde Las Condes, incluso 4 horas de integración con filtro L-Quad dejan el SNR
-       en la zona 22–23, que es utilizable pero exigente en procesado. En Atacama, tiempos similares superan SNR 35.
-
-    2. **Exposición individual razonable:** dentro de rangos estándar para la ASI533MC Pro (120–300 s),
-       la diferencia entre muchos subs algo más cortos o menos subs algo más largos es secundaria para el SNR final,
-       siempre que el histograma no se “pegue” al fondo ni a la saturación.
-
-    3. **Regla de oro local:** para el setup descrito, parecen razonables las siguientes guías:
-
-       - **Bortle 7 (Las Condes), nebulosas de emisión con L-Quad:**  
-         - Mínimo razonable: 3 horas  
-         - Recomendado: 4–5 horas
-
-       - **Bortle 5 (Valle Central), nebulosas brillantes:**  
-         - 2 horas ya permiten SNR cerca de 30.
-
-       - **Bortle 3–4 (cordillera / costa), galaxias y regiones HII:**  
-         - 3–4 horas producen datos muy sólidos.
-
-       - **Bortle 1 (Atacama):**  
-         - 2–3 horas pueden equivaler, en términos de SNR, a 4–5 horas en Bortle 5–7.
-
-    4. **Equipo reproducible:** la combinación RedCat 51 + ASI533MC Pro + L-Quad es hoy un estándar de facto
-       en astrofotografía portátil; por lo tanto, estas reglas son útiles para una gran cantidad de usuarios.
-
-    ## 5. Conclusiones
-
-    Este estudio propone una primera aproximación empírica para orientar la **cantidad de subs** necesaria en
-    función del cielo, objeto y equipo, usando un setup realista operado desde Chile.
-
-    No se trata de un modelo físico ni exhaustivo, sino de una herramienta práctica para:
-
-    - Dimensionar el tiempo total de integración antes de salir.
-    - Ajustar expectativas según Bortle y tipo de objeto.
-    - Comunicar de forma honesta a la comunidad qué se puede esperar desde cielos urbanos versus cielos oscuros.
-
-    Trabajos futuros pueden incorporar:
-
-    - Medidas reales de SNR derivadas de datos brutos.
-    - Modelos más precisos de ruido de lectura, dark current y banda estrecha.
-    - Extensión del análisis a otros sensores (por ejemplo, ASI2600MC) y a telescopios de mayor focal.
-
-    ## 6. Referencias
-
-    - Manuales y documentación de ZWO (ASI533MC Pro, ASIAIR Plus).
-    - Material técnico de William Optics sobre el RedCat 51 MK2.5.
-    - Documentación de Optolong sobre el filtro L-Quad Enhance.
-    - Experiencia de campo del autor, publicada en:
-      - Instagram: [@tele.objetivo](https://www.instagram.com/tele.objetivo)  
-      - Web: https://www.teleobjetivo.cl
+    - Review articles on EEG and nociception.
+    - Methodological papers on experimental pain paradigms.
+    - Future links to OrionLab EEG projects and repositories.
     """).strip() + "\n"
 
-    (paper_dir / "p01_subs_optimos_v1.md").write_text(paper_content, encoding="utf-8")
+    paper_path.write_text(paper_content, encoding="utf-8")
+    print("✅ P03 EEG pain content written.")
+
+
+def write_p04_eeg_bci():
+    proj_dir = BASE_DIR / "p04_eeg_bci_motor"
+    data_dir = proj_dir / "data"
+    paper_dir = proj_dir / "paper"
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    paper_dir.mkdir(parents=True, exist_ok=True)
+
+    csv_path = data_dir / "bci_motor_trials.csv"
+
+    rows = [
+        # subject_id, session_date, trial_id, command, predicted_command, correct, reaction_time_ms, confidence
+        ["S01", "2022-10-01", 1, "left", "left", 1, 950, 0.82],
+        ["S01", "2022-10-01", 2, "right", "right", 1, 910, 0.79],
+        ["S01", "2022-10-01", 3, "up", "right", 0, 1200, 0.55],
+        ["S02", "2023-02-15", 1, "left", "left", 1, 880, 0.87],
+        ["S02", "2023-02-15", 2, "right", "right", 1, 930, 0.84],
+        ["S02", "2023-02-15", 3, "down", "down", 1, 1020, 0.80],
+        ["S03", "2024-06-07", 1, "up", "up", 1, 970, 0.81],
+        ["S03", "2024-06-07", 2, "down", "down", 1, 990, 0.78],
+        ["S03", "2024-06-07", 3, "left", "right", 0, 1300, 0.52],
+        ["S04", "2025-01-12", 1, "neutral", "neutral", 1, 800, 0.88],
+    ]
+
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "subject_id",
+            "session_date",
+            "trial_id",
+            "command",
+            "predicted_command",
+            "correct",
+            "reaction_time_ms",
+            "confidence",
+        ])
+        writer.writerows(rows)
+
+    paper_path = paper_dir / "p04_eeg_bci_motor_v1.md"
+
+    paper_content = textwrap.dedent(f"""
+    # Prototype EEG-based BCI for Simple Motor Control
+    **Author:** Hugo Baghetti Calderón (Chile)  
+    **Affiliation:** OrionLab Research – tele.objetivo  
+
+    ## Abstract
+
+    Brain–computer interfaces (BCI) for motor control typically rely on decoding motor imagery
+    (imagined movements) or steady-state visual evoked potentials (SSVEP). In this project,
+    we define the skeleton of a simple BCI experiment where users issue discrete commands
+    ("left", "right", "up", "down", "neutral") and a classifier attempts to decode them
+    from EEG features.
+
+    The dataset `data/bci_motor_trials.csv` contains synthetic but realistic trial-level
+    results: ground truth commands, predicted commands, correctness, reaction time and
+    classifier confidence. The objective is to provide a compact basis for evaluating
+    accuracy, latency and usability of simple BCI prototypes.
+
+    ## 1. Introduction
+
+    Assistive technologies based on BCI hold promise for users with severe motor impairments.
+    Even simple discrete control (e.g., directional commands for a wheelchair or cursor)
+    can have a major impact on autonomy.
+
+    OrionLab Research approaches this from a practical engineering perspective:
+
+    - Define clear metrics and data structures.
+    - Start with a simple command vocabulary.
+    - Focus on latency, confidence and accuracy as key variables.
+
+    ## 2. Materials and Methods
+
+    ### 2.1 Task
+
+    Participants are instructed to issue one of five commands:
+
+    - "left", "right", "up", "down", "neutral"
+
+    The underlying assumption is that each command is associated with a distinct EEG pattern
+    derived from motor imagery or specific visual cues. In this v1 dataset we abstract away
+    raw EEG and store only the outputs of an imagined classifier.
+
+    ### 2.2 Dataset Schema
+
+    Each row in `bci_motor_trials.csv` contains:
+
+    - `subject_id` – anonymized participant identifier.
+    - `session_date` – date of recording (2019–2025 range in extended versions).
+    - `trial_id` – trial number within the session.
+    - `command` – intended command (ground truth).
+    - `predicted_command` – classifier output.
+    - `correct` – 1 if prediction matches command, 0 otherwise.
+    - `reaction_time_ms` – latency from cue to classifier decision.
+    - `confidence` – classifier confidence (0–1).
+
+    ### 2.3 Evaluation
+
+    This dataset supports basic analyses such as:
+
+    - Overall accuracy and per-command accuracy.
+    - Confusion matrices showing typical misclassifications.
+    - Distribution of reaction times by correct vs. incorrect trials.
+    - Relationship between confidence and correctness.
+
+    ## 3. Results (Illustrative)
+
+    In the synthetic sample:
+
+    - Accuracy is high for some commands and lower for others.
+    - Misclassifications often occur between "left" and "right".
+    - Trials with longer reaction times tend to have lower confidence.
+
+    These patterns are consistent with typical limitations of early BCI prototypes.
+
+    ## 4. Discussion
+
+    The goal of this project is not to report a finished BCI system, but to provide:
+
+    - A **data structure** that can be extended with real EEG-derived features.
+    - A **didactic example** for courses on data science, BCI and HCI.
+    - A **testing ground** for exploring metrics beyond accuracy (e.g., information transfer rate).
+
+    ## 5. Conclusions
+
+    - Discrete-command BCI prototypes can be studied with compact trial-level datasets.
+    - Careful recording of reaction times and confidence scores is crucial for evaluating usability.
+    - Future versions will link this schema to real features derived from EEG recordings and
+      motor imagery protocols.
+
+    ## 6. Version History
+
+    - v1.0 ({date.today().isoformat()}): Initial synthetic dataset and paper outline.
+
+    ## 7. References
+
+    - Introductory BCI literature on motor imagery.
+    - Technical documentation for open-source BCI toolkits.
+    - Future OrionLab research notes and implementations.
+    """).strip() + "\n"
+
+    paper_path.write_text(paper_content, encoding="utf-8")
+    print("✅ P04 EEG BCI motor content written.")
 
 
 def main():
-    BASE_DIR.mkdir(parents=True, exist_ok=True)
-    write_root_readme()
-
-    # P01 completo
-    create_p01_full()
-
-    # Resto de proyectos en modo plantilla
-    for code, title in PROJECTS:
-        create_project_skeleton(code, title)
-
-    print(f"✅ OrionLab Research creado en: {BASE_DIR}")
+    print(f"Using base directory: {BASE_DIR}")
+    write_p02_eeg_stress()
+    write_p03_eeg_pain()
+    write_p04_eeg_bci()
+    print("🎯 Done: P02, P03 and P04 updated with CSV + v1 papers.")
 
 
 if __name__ == "__main__":

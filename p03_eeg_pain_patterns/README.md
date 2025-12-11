@@ -1,20 +1,6 @@
-# P03_EEG_PAIN_PATTERNS – EEG Pain Pattern Detection
+# P03 – EEG Pain Pattern Analysis (OrionLab Research)
 
-Este directorio forma parte de **OrionLab Research**.
+Estudio preliminar para identificar firmas neuroeléctricas asociadas a niveles de dolor.
+Diseñado para futura replicación con hardware BCI accesible.
 
-- 📂 **Código**: `p03_eeg_pain_patterns`
-- 📄 **Paper**: ver `paper/`
-- 📊 **Datos**: ver `data/`
-
-El objetivo de este estudio es documentar, de forma reproducible, un experimento de
-investigación aplicado a neurociencia de datos o astrofotografía científica, usando
-herramientas abiertas (Python, Jupyter, Git) y equipamiento accesible.
-
-## Estructura
-
-- `data/` – CSV con datos de ejemplo para reproducir gráficos o análisis.
-- `paper/` – Versión 1 del paper (`*_v1.md`), en formato markdown tipo artículo científico.
-
-## Estado
-
-- Versión inicial del esqueleto: pendiente completar paper y análisis detallado.
+📄 Paper: `paper/p03_pain_v1.md`

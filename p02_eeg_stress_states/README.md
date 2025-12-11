@@ -1,20 +1,12 @@
-# P02_EEG_STRESS_STATES – EEG Stress States Classification
+# P02 – EEG Stress State Classification (OrionLab Research)
 
-Este directorio forma parte de **OrionLab Research**.
+Primer estudio de OrionLab para caracterizar patrones de estrés medidos mediante EEG.
+Dataset sintético realista multisujeto, multisessión y multibanda.
 
-- 📂 **Código**: `p02_eeg_stress_states`
-- 📄 **Paper**: ver `paper/`
-- 📊 **Datos**: ver `data/`
+- **Sujetos:** 20  
+- **Registros:** 300  
+- **Bandas:** Alpha, Beta, Theta, Delta  
+- **Métricas derivadas:** Entropía, beta/alpha ratio  
+- **Etiqueta:** low / medium / high  
 
-El objetivo de este estudio es documentar, de forma reproducible, un experimento de
-investigación aplicado a neurociencia de datos o astrofotografía científica, usando
-herramientas abiertas (Python, Jupyter, Git) y equipamiento accesible.
-
-## Estructura
-
-- `data/` – CSV con datos de ejemplo para reproducir gráficos o análisis.
-- `paper/` – Versión 1 del paper (`*_v1.md`), en formato markdown tipo artículo científico.
-
-## Estado
-
-- Versión inicial del esqueleto: pendiente completar paper y análisis detallado.
+📄 El paper completo está en: `paper/p02_stress_v1.md`
