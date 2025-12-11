@@ -1,0 +1,11 @@
+region,season,median_bortle,clear_nights_per_month,altitude_m
+RM,summer,2,11,2500
+RM,winter,5,17,2500
+IV,summer,5,17,300
+IV,winter,2,11,800
+II,summer,4,19,2500
+II,winter,5,15,4000
+IX,summer,6,16,800
+IX,winter,5,7,2500
+X,summer,4,16,800
+X,winter,2,17,1500

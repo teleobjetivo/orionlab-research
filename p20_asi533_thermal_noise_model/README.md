@@ -1,20 +1,29 @@
-# P20_ASI533_THERMAL_NOISE_MODEL – Thermal Noise Model for ASI533MC Pro
+    # Thermal Noise Model for ASI533MC Pro
 
-Este directorio forma parte de **OrionLab Research**.
+    Proyecto de investigación independiente del repositorio **OrionLab Research**.
+    Este estudio combina captura real en terreno con simulación y análisis reproducible.
 
-- 📂 **Código**: `p20_asi533_thermal_noise_model`
-- 📄 **Paper**: ver `paper/`
-- 📊 **Datos**: ver `data/`
+    - **ID del estudio:** P20_ASI533_THERMAL_NOISE_MODEL
+    - **Alcance:** Astrofotografía cuantitativa
+    - **Estado:** En desarrollo (versión 0.1, 2025-12-11)
+    - **Ubicación:** Observaciones y simulaciones basadas en cielos de Chile (Santiago, norte y sur).
 
-El objetivo de este estudio es documentar, de forma reproducible, un experimento de
-investigación aplicado a neurociencia de datos o astrofotografía científica, usando
-herramientas abiertas (Python, Jupyter, Git) y equipamiento accesible.
+    ## Objetivo general
 
-## Estructura
+    Explorar y cuantificar fenómenos relevantes para astrofotografía y ciencia ciudadana,
+    utilizando un enfoque reproducible con datos tabulares (`data/`) y un paper técnico en `paper/`.
 
-- `data/` – CSV con datos de ejemplo para reproducir gráficos o análisis.
-- `paper/` – Versión 1 del paper (`*_v1.md`), en formato markdown tipo artículo científico.
+    ## Estructura del estudio
 
-## Estado
+    - `data/` – Datos sintéticos o resumidos para reproducir análisis y gráficos.
+    - `paper/` – Manuscrito en formato markdown listo para ser versionado.
+    - `notebooks/` – Espacio reservado para cuadernos Jupyter con análisis adicionales.
 
-- Versión inicial del esqueleto: pendiente completar paper y análisis detallado.
+    **Author – Hugo Baghetti Calderón (Chile)**  
+Independent researcher in data, neurotech and astrophotography.  
+- M.Sc. in IT Management, Computer Engineer  
+- Specialised in data architectures, analytics and astro imaging from Chile  
+- Instagram: [@tele.objetivo](https://www.instagram.com/tele.objetivo)  
+- Web: [www.teleobjetivo.cl](https://www.teleobjetivo.cl)  
+- GitHub: [teleobjetivo](https://github.com/teleobjetivo)
+

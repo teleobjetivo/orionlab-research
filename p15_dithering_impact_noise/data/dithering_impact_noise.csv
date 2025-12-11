@@ -1,0 +1,17 @@
+pattern,n_subs,noise_rms_adu,residual_band_noise
+none,20,20.69,1.65
+none,40,19.5,1.33
+none,80,39.59,1.26
+none,120,21.16,1.21
+small,20,34.29,0.8
+small,40,27.42,1.53
+small,80,31.85,0.56
+small,120,18.5,2.86
+medium,20,18.23,1.62
+medium,40,27.5,0.81
+medium,80,13.14,2.01
+medium,120,25.11,1.31
+large,20,21.84,1.81
+large,40,17.41,1.42
+large,80,21.57,1.03
+large,120,13.37,1.69
