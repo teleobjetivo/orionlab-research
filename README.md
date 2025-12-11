@@ -15,12 +15,31 @@ Cada carpeta `pXX_*` representa un estudio con:
 
 ## Índice de estudios
 
-- **P01 – Astro** – Modelo empírico de número óptimo de subs según cielo, objeto y cámara.
-- **P02 – Neuro** – Clasificación de estados de estrés / relajación usando EEG de bajo costo.
-- **P03 – Neuro** – Patrones EEG asociados a dolor y estímulos nociceptivos.
-- **P04 – Neuro/BCI** – Prototipo de interfaz cerebro–computador para control de motor.
-- **P05–P20 – Astro** – Estudios sobre filtros, SNR, guiado, contaminación lumínica,
-  visibilidad desde Chile, ruido térmico de la ASI533MC Pro y técnicas de procesado.
+## 1. Estudios incluidos (P01–P20)
+
+### Neurociencia
+- **P02 – Clasificación EEG de estrés vs relajación**
+- **P03 – Patrones EEG asociados a dolor**
+- **P04 – Interfaz cerebro–computador (BCI) para control motor**
+
+### Astrofotografía
+- **P01 – Cálculo óptimo de subframes según cielo, objeto y cámara**
+- **P05 – Relación entre exposición larga y SNR**
+- **P06 – Ruido térmico y darkframes (ASI533MC Pro vs Nikon D7500)**
+- **P07 – Planificación óptima de cantidad de luces/oscuras por tipo de objeto**
+- **P08 – Fotometría en cúmulos abiertos**
+- **P09 – Contaminación lumínica en Las Condes**
+- **P10 – Pipeline de reducción astrofotográfica en Python**
+- **P11 – Detección de gradientes de luz parasitaria**
+- **P12 – Planificación de sesiones astronómicas en Chile**
+- **P13 – Variación del color estelar según filtros y calibración**
+- **P14 – Comparación de algoritmos de apilado OSC**
+- **P15 – Efecto del dithering en reducción de ruido**
+- **P16 – Estadísticas de trazas Starlink sobre Chile**
+- **P17 – Modelo SNR multibanda (banda estrecha vs banda ancha)**
+- **P18 – Visibilidad real de objetos Messier/NGC desde Chile**
+- **P19 – Mejora de detalle en nebulosas usando wavelets**
+- **P20 – Modelo de ruido térmico de la ASI533MC Pro**
 
 ## About Me – Hugo Baghetti Calderón
 
