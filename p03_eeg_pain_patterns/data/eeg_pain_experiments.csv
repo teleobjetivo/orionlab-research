@@ -1,0 +1,11 @@
+subject_id,session_date,stim_type,intensity_level,channel,band,power_db,label
+S01,2021-08-11,thermal,1,Cz,beta,-15.2,baseline
+S01,2021-08-11,thermal,3,Cz,beta,-10.4,mild_pain
+S01,2021-08-11,thermal,5,Cz,beta,-7.8,high_pain
+S02,2022-02-03,pressure,2,C3,gamma,-14.1,baseline
+S02,2022-02-03,pressure,4,C3,gamma,-9.9,mild_pain
+S02,2022-02-03,pressure,5,C3,gamma,-7.2,high_pain
+S03,2023-07-19,thermal,2,Cz,beta,-13.5,baseline
+S03,2023-07-19,thermal,4,Cz,beta,-9.2,mild_pain
+S04,2024-05-09,pressure,3,C4,gamma,-11.3,mild_pain
+S04,2024-05-09,pressure,5,C4,gamma,-8.1,high_pain

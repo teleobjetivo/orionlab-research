@@ -1,0 +1,11 @@
+subject_id,session_date,device,condition,label,mean_alpha,mean_beta,hr_bpm,notes
+S01,2022-11-10,Muse 2,rest_eyes_closed,relaxed,12.5,7.1,64,"Sesión base, ambiente silencioso"
+S01,2022-11-10,Muse 2,mental_arithmetic,stressed,8.7,12.9,82,Suma mental continua 7 en 7
+S02,2023-01-05,Muse 2,reading_neutral_text,relaxed,11.9,7.9,70,Lectura tranquila 10 min
+S02,2023-01-05,Muse 2,mental_arithmetic,stressed,9.1,13.2,85,Tarea mental moderada
+S03,2023-06-21,OpenBCI,breathing_exercise,relaxed,13.4,6.8,60,Respiración 4-4-8
+S03,2023-06-21,OpenBCI,time_pressure_task,stressed,8.3,14.1,90,Tarea con límite de tiempo
+S04,2024-03-14,Muse S,music_relaxing,relaxed,12.8,7.4,67,Música ambiental suave
+S04,2024-03-14,Muse S,email_overload,stressed,9.0,13.8,88,Simulación de trabajo con muchos estímulos
+S05,2024-09-02,OpenBCI,baseline,relaxed,12.2,7.6,66,Referencia en reposo
+S05,2024-09-02,OpenBCI,multitasking_screen,stressed,8.9,14.5,92,Varias tareas en pantalla

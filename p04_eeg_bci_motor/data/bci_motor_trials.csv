@@ -1,0 +1,11 @@
+subject_id,session_date,trial_id,command,predicted_command,correct,reaction_time_ms,confidence
+S01,2022-10-01,1,left,left,1,950,0.82
+S01,2022-10-01,2,right,right,1,910,0.79
+S01,2022-10-01,3,up,right,0,1200,0.55
+S02,2023-02-15,1,left,left,1,880,0.87
+S02,2023-02-15,2,right,right,1,930,0.84
+S02,2023-02-15,3,down,down,1,1020,0.8
+S03,2024-06-07,1,up,up,1,970,0.81
+S03,2024-06-07,2,down,down,1,990,0.78
+S03,2024-06-07,3,left,right,0,1300,0.52
+S04,2025-01-12,1,neutral,neutral,1,800,0.88
